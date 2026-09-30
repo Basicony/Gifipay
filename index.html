@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GifiPay</title>
+<meta name="theme-color" content="#0a0907">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GifiPay">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0907;--card:#16130d;--line:#3a2f14;--gold:#e7b84a;--gold2:#8a6a1c;--tx:#f5efe0;--mut:#9a927d;--up:#2ecc71;--dn:#e5484d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme=dark]){}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:Manrope,system-ui,sans-serif}
+#app{max-width:440px;margin:0 auto;height:100%;display:flex;flex-direction:column;position:relative}
+main{flex:1;overflow-y:auto;padding:14px 16px 20px}
+h1{font-size:19px;font-weight:800}h2{font-size:15px;font-weight:800;margin:18px 0 8px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}.top h1{flex:1}
+.ib{background:var(--card);border:1px solid var(--line);color:var(--gold);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer}
+.gold{background:linear-gradient(135deg,#f6d67a,#c8952a 55%,#8a6a1c);color:#1a1300;border-radius:18px;padding:18px}
+.gold small{opacity:.75;font-weight:600}.big{font-size:32px;font-weight:800;margin:4px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #241d0d}.row:last-child{border:0}
+.row .g{flex:1;min-width:0}.row b{display:block;font-size:14px}.row span{font-size:12px;color:var(--mut)}
+.r{text-align:right}.up{color:var(--up)!important}.dn{color:var(--dn)!important}
+.ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none;background:#2a2110;color:var(--gold)}
+.grid{display:grid;gap:10px}.g5{grid-template-columns:repeat(5,1fr)}.g2{grid-template-columns:1fr 1fr}
+.act{background:var(--card);border:1px solid var(--line);color:var(--gold);border-radius:14px;padding:12px 2px;font:600 11px Manrope;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
+.act i{font-style:normal;font-size:18px}
+.btn{width:100%;border:0;border-radius:14px;padding:15px;font:800 15px Manrope;cursor:pointer;background:linear-gradient(135deg,#f6d67a,#c8952a);color:#1a1300;margin-top:14px}
+.btn.g{background:var(--up);color:#04140a}.btn.d{background:var(--dn);color:#fff}.btn.o{background:none;border:1px solid var(--line);color:var(--gold)}
+.tabs{display:flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px;margin-bottom:12px}
+.tabs button{flex:1;border:0;background:none;color:var(--mut);padding:10px;border-radius:9px;font:700 13px Manrope;cursor:pointer}
+.tabs button.on{background:linear-gradient(135deg,#f6d67a,#c8952a);color:#1a1300}
+nav{display:flex;border-top:1px solid var(--line);background:#0d0b07;padding:6px 4px}
+nav button{flex:1;background:none;border:0;color:var(--mut);font:600 10px Manrope;padding:6px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button i{font-style:normal;font-size:19px}nav button.on{color:var(--gold)}
+input,select{width:100%;background:#0d0b07;border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:13px;font:600 15px Manrope;margin-top:6px}
+label{font-size:12px;color:var(--mut);font-weight:600;display:block;margin-top:12px}
+.pill{display:inline-flex;gap:6px;overflow-x:auto;max-width:100%}.pill button{background:var(--card);border:1px solid var(--line);color:var(--mut);border-radius:20px;padding:6px 14px;font:600 12px Manrope;cursor:pointer}
+.pill button.on{color:var(--gold);border-color:var(--gold)}
+.vcard{background:linear-gradient(135deg,#2a2110,#0d0b07);border:1px solid var(--gold2);border-radius:18px;padding:18px;height:170px;display:flex;flex-direction:column;justify-content:space-between}
+.sw{width:44px;height:26px;border-radius:13px;background:#2a2417;position:relative;border:0;cursor:pointer;flex:none}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#777;transition:.2s}
+.sw.on{background:var(--gold2)}.sw.on:after{left:21px;background:var(--gold)}
+#ov{position:absolute;inset:0;background:#000a;display:none;align-items:flex-end;z-index:5}
+#sh{background:#120f09;border-top:1px solid var(--gold2);border-radius:22px 22px 0 0;padding:18px 16px 24px;width:100%;max-height:90%;overflow:auto}
+#toast{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a1300;padding:10px 16px;border-radius:20px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:9;white-space:nowrap}
+#toast.on{opacity:1}
+.av{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#f6d67a,#8a6a1c);display:grid;place-items:center;font:800 30px Manrope;color:#1a1300;margin:6px auto}
+.logo{font-weight:800;color:var(--gold);font-size:18px}
+canvas{width:100%;height:110px;display:block}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div id="app"><div id="toast"></div><main id="m"></main><nav id="nav"></nav><div id="ov"><div id="sh"></div></div></div>
+<script>
+const A={BTC:{n:'Bitcoin',p:67432.18,c:2.45},ETH:{n:'Ethereum',p:3245.67,c:3.12},USDT:{n:'Tether',p:1,c:.01},BNB:{n:'BNB',p:587.32,c:-1.2},SOL:{n:'Solana',p:142.75,c:4.23},XRP:{n:'XRP',p:.52,c:-2.18}};
+const S={tab:'home',sub:null,usd:2340,bal:{BTC:.0487,ETH:1.2456,USDT:2340,BNB:.8342,SOL:5.6721,XRP:0},side:'buy',asset:'BTC',amt:100,method:'GifiPay Balance',vw:'crypto',fl:'all',
+tx:[['Received USDT','+200.00 USDT','Today, 09:15 AM',1],['Sent BTC','-0.015 BTC','Yesterday, 08:45 PM',0],['Airtime Purchase','-$1.00','Yesterday, 03:25 PM',0]],
+sec:{'Two-factor authentication':1,'Biometric login':1,'Withdrawal confirmation':1},cards:[{b:'Amazon',v:50,c:'AMZN-7Q2K-1234'}],
+name:'David Famous',email:'davidfamous@gmail.com',kyc:1,frozen:0};
+const $=s=>document.querySelector(s),f2=n=>n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}),fx=(n,a)=>a==='USDT'||a==='XRP'||a==='SOL'?f2(n):n.toFixed(4);
+const total=()=>S.usd+Object.keys(S.bal).reduce((t,k)=>t+S.bal[k]*A[k].p,0);
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
+function log(a,b,pos){S.tx.unshift([a,b,'Just now',pos?1:0])}
+function go(t,sub){S.tab=t;S.sub=sub||null;render()}
+const NAV=[['home','⌂','Home'],['bank','🏦','Bank'],['exchange','⇄','Exchange'],['wallet','▣','Wallet'],['profile','☺','Profile']];
+function head(t,back){return`<div class="top">${back?`<button class="ib" onclick="go('${back}')">‹</button>`:'<div class="logo">Ⓖ</div>'}<h1>${t}</h1><button class="ib" onclick="toast('No new notifications')">🔔</button></div>`}
+function ico(k){return`<div class="ic">${k.slice(0,3)}</div>`}
+function txList(n){return S.tx.slice(0,n).map(t=>`<div class="row"><div class="ic ${t[3]?'up':'dn'}">${t[3]?'↓':'↑'}</div><div class="g"><b>${t[0]}</b><span>${t[2]}</span></div><b class="${t[3]?'up':'dn'}">${t[1]}</b></div>`).join('')}
+const V={
+home(){return head('GifiPay')+`<div class="gold"><small>Total Balance</small><div class="big">$${f2(total())}</div><small>${f2(S.usd)} USD · ${fx(S.bal.BTC,'BTC')} BTC</small></div>
+<div class="grid g5" style="margin-top:12px">${[['Send','↑','send'],['Receive','↓','receive'],['Buy','＋','buy'],['Sell','－','sell'],['Swap','⇄','swap']].map(a=>`<button class="act" onclick="act('${a[2]}')"><i>${a[1]}</i>${a[0]}</button>`).join('')}</div>
+<div class="grid g2" style="margin-top:10px"><button class="act" onclick="go('wallet','gifts')"><i>🎁</i>Gift Cards</button><button class="act" onclick="go('profile','security')"><i>🛡</i>Security</button></div>
+<h2>Recent Transactions</h2><div class="card">${txList(5)}</div>`},
+bank(){return head('GifiPay Bank')+`<div class="vcard"><div class="logo">GifiPay <small style="float:right;font-size:11px;color:var(--mut)">${S.frozen?'FROZEN':'VIRTUAL CARD'}</small></div><div style="letter-spacing:3px;font-weight:700">•••• •••• •••• 4587</div><div style="display:flex;justify-content:space-between;font-size:12px"><span>12/30</span><b style="font-size:16px;font-style:italic">VISA</b></div></div>
+<div class="card" style="margin-top:12px"><span style="color:var(--mut);font-size:12px">Account Balance</span><div class="big">$${f2(S.usd)}</div><span style="color:var(--mut)">₦${Math.round(S.usd*1602).toLocaleString()}</span></div>
+<div class="grid g2" style="margin-top:12px">${[['Transfer Money','⇄','transfer'],['Pay Bills','🧾','bills'],['Airtime & Data','📱','airtime'],['Bank Transfer','🏦','transfer'],['Card Management','💳','card'],['Statement','📄','stmt']].map(a=>`<button class="act" style="flex-direction:row;justify-content:center;padding:16px 6px" onclick="act('${a[2]}')"><i>${a[1]}</i>${a[0]}</button>`).join('')}</div>`},
+exchange(){let l=Object.keys(A).filter(k=>S.fl==='all'||(S.fl==='fav'&&['BTC','ETH','USDT'].includes(k))||(S.fl==='gain'&&A[k].c>0)||(S.fl==='lose'&&A[k].c<0));
+return head('Crypto Exchange')+`<div class="pill" style="margin-bottom:10px">${[['fav','Favorites'],['all','All Coins'],['gain','Gainers'],['lose','Losers']].map(x=>`<button class="${S.fl===x[0]?'on':''}" onclick="S.fl='${x[0]}';render()">${x[1]}</button>`).join('')}</div>
+<div class="card">${l.map(k=>`<div class="row" onclick="S.asset='${k}';go('exchange','trade')" style="cursor:pointer">${ico(k)}<div class="g"><b>${A[k].n}</b><span>${k}</span></div><div class="r"><b>$${f2(A[k].p)}</b><span class="${A[k].c>0?'up':'dn'}">${A[k].c>0?'+':''}${A[k].c.toFixed(2)}%</span></div></div>`).join('')}</div>
+<h2>BTC/USDT <span class="up">$${f2(A.BTC.p)}</span></h2><div class="card"><canvas id="cv" width="400" height="110"></canvas></div>
+<div class="grid g2"><button class="btn g" onclick="S.side='buy';S.asset='BTC';go('exchange','trade')">Buy</button><button class="btn d" onclick="S.side='sell';S.asset='BTC';go('exchange','trade')">Sell</button></div>`},
+trade(){const a=S.asset,amt=+S.amt||0,rec=S.side==='buy'?amt/A[a].p:amt*A[a].p;
+return head('Buy & Sell Crypto','exchange')+`<div class="tabs"><button class="${S.side==='buy'?'on':''}" onclick="S.side='buy';render()">Buy</button><button class="${S.side==='sell'?'on':''}" onclick="S.side='sell';render()">Sell</button></div>
+<label>${S.side==='buy'?'I want to spend (USD)':'I want to sell ('+a+')'}</label><input id="ta" type="number" inputmode="decimal" value="${S.amt}" oninput="S.amt=this.value;upd()">
+<label>Asset</label><select onchange="S.asset=this.value;render()">${Object.keys(A).map(k=>`<option ${k===a?'selected':''}>${k}</option>`).join('')}</select>
+<label>I will receive (approx.)</label><input id="tr" readonly value="${S.side==='buy'?fx(rec,a)+' '+a:'$'+f2(rec)}">
+<div class="pill" style="margin-top:10px">${[25,50,75,100].map(p=>`<button onclick="pct(${p})">${p}%</button>`).join('')}</div>
+${S.side==='buy'?`<label>Payment method</label>${['GifiPay Balance','Bank Card / Visa'].map(m=>`<div class="card row" style="margin-top:8px;cursor:pointer;border-color:${S.method===m?'var(--gold)':'var(--line)'}" onclick="S.method='${m}';render()"><div class="g"><b>${m}</b><span>${m[0]==='G'?'$'+f2(S.usd):'Visa •••• 4587'}</span></div>${S.method===m?'<span class="up">●</span>':''}</div>`).join('')}`:`<label>Available</label><div class="card">${fx(S.bal[a],a)} ${a}</div>`}
+<button class="btn" onclick="trade()">${S.side==='buy'?'Buy '+a:'Sell '+a}</button>`},
+wallet(){if(S.sub==='gifts')return V.gifts();const fiat=S.vw==='fiat';
+return head('My Wallet','home')+`<div class="card"><span style="color:var(--mut);font-size:12px">Total Balance</span><div class="big">$${f2(total())}</div></div>
+<div class="tabs" style="margin-top:12px"><button class="${!fiat?'on':''}" onclick="S.vw='crypto';render()">Crypto</button><button class="${fiat?'on':''}" onclick="S.vw='fiat';render()">Fiat</button></div>
+<div class="card">${fiat?`<div class="row"><div class="ic">$</div><div class="g"><b>US Dollar</b><span>USD</span></div><b>$${f2(S.usd)}</b></div><div class="row"><div class="ic">₦</div><div class="g"><b>Nigerian Naira</b><span>NGN</span></div><b>₦${Math.round(S.usd*1602).toLocaleString()}</b></div>`:Object.keys(S.bal).map(k=>`<div class="row">${ico(k)}<div class="g"><b>${A[k].n}</b><span>${k}</span></div><div class="r"><b>${fx(S.bal[k],k)}</b><span>$${f2(S.bal[k]*A[k].p)}</span></div></div>`).join('')}</div>
+<div class="grid g5" style="grid-template-columns:repeat(3,1fr);margin-top:12px"><button class="act" onclick="act('deposit')"><i>＋</i>Deposit</button><button class="act" onclick="act('withdraw')"><i>↑</i>Withdraw</button><button class="act" onclick="act('swap')"><i>⇄</i>Transfer</button></div>
+<button class="btn o" onclick="go('wallet','gifts')">🎁 Gift Cards</button>`},
+gifts(){const B=[['Amazon','$10 – $500'],['Apple','$10 – $500'],['Google Play','$10 – $200'],['Steam','$5 – $100']];
+return head('Gift Cards','wallet')+`<h2 style="margin-top:0">Popular Gift Cards</h2><div class="grid g2">${B.map(b=>`<button class="act" style="padding:18px 6px;font-size:13px" onclick="buyGift('${b[0]}')"><i>🎁</i>${b[0]}<span style="color:var(--mut);font-weight:400">${b[1]}</span></button>`).join('')}</div>
+<h2>My Gift Cards</h2><div class="card">${S.cards.map((c,i)=>`<div class="row"><div class="ic">🎁</div><div class="g"><b>${c.b} Gift Card</b><span>$${c.v} · <span id="c${i}">••••-••••-${c.c.slice(-4)}</span></span></div><button class="ib" style="width:auto;padding:0 12px;font:700 12px Manrope" onclick="$('#c${i}').textContent='${c.c}'">View</button></div>`).join('')}</div>`},
+profile(){if(S.sub==='security')return V.security();
+return head('Profile')+`<div class="av">${S.name.split(' ').map(x=>x[0]).join('')}</div><div style="text-align:center"><h1>${S.name} ✔</h1><span style="color:var(--mut);font-size:13px">${S.email}</span><br><span class="pill" style="margin-top:8px"><button class="on">VIP Member</button></span></div>
+<div class="card" style="margin-top:16px">${[['Personal Information','edit'],['KYC Verification','kyc'],['Edit Profile','edit'],['Change Password','pw'],['Security','sec'],['Help & Support','help']].map(r=>`<div class="row" style="cursor:pointer" onclick="act('${r[1]}')"><div class="g"><b>${r[0]}</b></div>${r[1]==='kyc'?`<span class="${S.kyc?'up':'dn'}">${S.kyc?'Verified':'Verify'}</span>`:'›'}</div>`).join('')}</div>
+<button class="btn o" onclick="toast('Logged out (demo)')">Log Out</button>`},
+security(){return head('Security','profile')+`<div style="text-align:center;font-size:44px">🛡</div><p style="text-align:center;font-weight:800;margin-bottom:12px">Your account is secure</p><div class="card">${Object.keys(S.sec).map(k=>`<div class="row"><div class="g"><b>${k}</b></div><button class="sw ${S.sec[k]?'on':''}" onclick="S.sec['${k}']^=1;render()"></button></div>`).join('')}
+<div class="row" style="cursor:pointer" onclick="act('pin')"><div class="g"><b>Change PIN</b></div>›</div><div class="row" style="cursor:pointer" onclick="toast('This device · Active now')"><div class="g"><b>Device management</b></div>›</div><div class="row" style="cursor:pointer" onclick="toast('Last login: today, 09:02')"><div class="g"><b>Login activity</b></div>›</div></div>`}};
+function render(){const v=S.sub&&S.tab!=='wallet'&&S.tab!=='profile'?V[S.sub]:V[S.tab];$('#m').innerHTML=v();$('#nav').innerHTML=NAV.map(n=>`<button class="${S.tab===n[0]?'on':''}" onclick="go('${n[0]}')"><i>${n[1]}</i>${n[2]}</button>`).join('');if(S.tab==='exchange'&&!S.sub)chart()}
+function upd(){const a=S.asset,amt=+S.amt||0;$('#tr').value=S.side==='buy'?fx(amt/A[a].p,a)+' '+a:'$'+f2(amt*A[a].p)}
+function pct(p){const mx=S.side==='buy'?(S.method[0]==='G'?S.usd:5000):S.bal[S.asset];S.amt=+(mx*p/100).toFixed(S.side==='buy'?2:6);render()}
+function trade(){const a=S.asset,amt=+S.amt;if(!(amt>0))return toast('Enter an amount');
+if(S.side==='buy'){if(S.method[0]==='G'&&amt>S.usd)return toast('Not enough balance');if(S.method[0]==='G')S.usd-=amt;S.bal[a]+=amt/A[a].p;log('Bought '+a,'+'+fx(amt/A[a].p,a)+' '+a,1);toast('Bought '+fx(amt/A[a].p,a)+' '+a)}
+else{if(amt>S.bal[a])return toast('Not enough '+a);S.bal[a]-=amt;S.usd+=amt*A[a].p;log('Sold '+a,'-'+amt+' '+a,0);toast('Sold '+amt+' '+a)}render()}
+function chart(){const c=$('#cv');if(!c)return;const x=c.getContext('2d');let y=70,p=[];for(let i=0;i<40;i++){y+=(Math.sin(i*.7)*6-2.2+Math.random()*6);p.push(y)}
+x.strokeStyle='#2ecc71';x.lineWidth=2;x.beginPath();p.forEach((v,i)=>i?x.lineTo(i*10,v):x.moveTo(0,v));x.stroke()}
+const opts=(o)=>o.map(k=>`<option>${k}</option>`).join(''),CR=Object.keys(A);
+const FORMS={send:['Send Crypto',[['asset','Asset','s',CR],['amt','Amount','n'],['to','Recipient address','t']],'Send',v=>{if(!(v.amt>0)||v.amt>S.bal[v.asset])return'Check amount';if(!v.to)return'Enter an address';S.bal[v.asset]-=+v.amt;log('Sent '+v.asset,'-'+v.amt+' '+v.asset,0)}],
+receive:['Receive Crypto',[['asset','Asset','s',CR]],null],
+buy:0,sell:0,
+swap:['Swap',[['from','From','s',CR],['to','To','s',CR.slice().reverse()],['amt','Amount','n']],'Swap',v=>{if(v.from===v.to)return'Pick two different assets';if(!(v.amt>0)||v.amt>S.bal[v.from])return'Check amount';const g=v.amt*A[v.from].p/A[v.to].p;S.bal[v.from]-=+v.amt;S.bal[v.to]+=g;log('Swapped '+v.from+' → '+v.to,'+'+fx(g,v.to)+' '+v.to,1)}],
+deposit:['Deposit USD',[['amt','Amount (USD)','n']],'Deposit',v=>{if(!(v.amt>0))return'Enter an amount';S.usd+=+v.amt;log('Deposit','+$'+f2(+v.amt),1)}],
+withdraw:['Withdraw USD',[['amt','Amount (USD)','n']],'Withdraw',v=>{if(!(v.amt>0)||v.amt>S.usd)return'Check amount';S.usd-=+v.amt;log('Withdrawal','-$'+f2(+v.amt),0)}],
+transfer:['Bank Transfer',[['bank','Bank','s',['GTBank','Access Bank','Zenith Bank','First Bank']],['acct','Account number','t'],['amt','Amount (USD)','n']],'Send money',v=>{if(!/^\d{10}$/.test(v.acct))return'Account number must be 10 digits';if(!(v.amt>0)||v.amt>S.usd)return'Check amount';S.usd-=+v.amt;log('Transfer to '+v.bank,'-$'+f2(+v.amt),0)}],
+bills:['Pay Bills',[['b','Biller','s',['Electricity','Internet','Cable TV','Water']],['amt','Amount (USD)','n']],'Pay bill',v=>{if(!(v.amt>0)||v.amt>S.usd)return'Check amount';S.usd-=+v.amt;log(v.b+' bill','-$'+f2(+v.amt),0)}],
+airtime:['Airtime & Data',[['n','Network','s',['MTN','Airtel','Glo','9mobile']],['ph','Phone number','t'],['amt','Amount (USD)','n']],'Buy',v=>{if(!v.ph)return'Enter a phone number';if(!(v.amt>0)||v.amt>S.usd)return'Check amount';S.usd-=+v.amt;log('Airtime Purchase','-$'+f2(+v.amt),0)}],
+pin:['Change PIN',[['o','Current PIN','n'],['p','New PIN (4 digits)','n']],'Update PIN',v=>{if(!/^\d{4}$/.test(v.p))return'PIN must be 4 digits'}],
+pw:['Change Password',[['o','Current password','t'],['p','New password','t']],'Update password',v=>{if(!v.p||v.p.length<8)return'Use at least 8 characters'}],
+edit:['Edit Profile',[['name','Full name','t',0,S.name],['email','Email','t',0,S.email]],'Save changes',v=>{if(!v.name)return'Name is required';S.name=v.name;S.email=v.email}],
+help:['Help & Support',[['q','Describe your issue','t']],'Send to support',v=>{if(!v.q)return'Tell us what happened'}]};
+let cur;
+function act(k){if(k==='buy'||k==='sell'){S.side=k;S.asset='BTC';return go('exchange','trade')}
+if(k==='sec')return go('profile','security');
+if(k==='kyc'){if(S.kyc)return toast('KYC already verified');S.kyc=1;toast('KYC verified');return render()}
+if(k==='card'){return sheet('Card Management',`<div class="row"><div class="g"><b>Freeze card</b><span>Block all card payments</span></div><button class="sw ${S.frozen?'on':''}" onclick="S.frozen^=1;this.classList.toggle('on');render()"></button></div><button class="btn o" onclick="closeS()">Done</button>`)}
+if(k==='stmt'){return sheet('Statement',`<div class="card">${txList(8)}</div><button class="btn o" onclick="closeS()">Close</button>`)}
+const F=FORMS[k];cur=k;
+if(k==='receive'){return sheet(F[0],`<label>Asset</label><select id="f_asset" onchange="$('#adr').textContent=addr(this.value)">${opts(CR)}</select><div class="card" style="margin-top:12px;word-break:break-all;text-align:center" id="adr">${addr('BTC')}</div><button class="btn" onclick="toast('Address copied');closeS()">Copy address</button>`)}
+sheet(F[0],F[1].map(f=>`<label>${f[1]}</label>${f[2]==='s'?`<select id="f_${f[0]}">${opts(f[3])}</select>`:`<input id="f_${f[0]}" type="${f[2]==='n'?'number':'text'}" ${f[2]==='n'?'inputmode="decimal"':''} value="${f[4]||''}">`}`).join('')+`<button class="btn" onclick="submit()">${F[2]}</button>`)}
+function addr(a){return {BTC:'bc1q',ETH:'0x',USDT:'0x',BNB:'bnb1',SOL:'',XRP:'r'}[a]+'9f3k2m8x7d4a1c6b5n0p'+a.toLowerCase()}
+function submit(){const F=FORMS[cur],v={};F[1].forEach(f=>v[f[0]]=$('#f_'+f[0]).value.trim());const e=F[3](v);if(e)return toast(e);closeS();toast('Done ✓');render()}
+function buyGift(b){cur='gift';sheet(b+' Gift Card',`<label>Amount (USD)</label><select id="f_v">${opts([10,25,50,100,200])}</select><div style="color:var(--mut);font-size:12px;margin-top:8px">Paid from balance: $${f2(S.usd)}</div><button class="btn" onclick="const v=+$('#f_v').value;if(v>S.usd)return toast('Not enough balance');S.usd-=v;S.cards.unshift({b:'${b}',v,c:'GIFI-'+Math.random().toString(36).slice(2,6).toUpperCase()+'-'+Math.floor(1000+Math.random()*9000)});log('${b} Gift Card','-$'+v,0);closeS();toast('Gift card added');render()">Buy gift card</button>`)}
+function sheet(t,h){$('#sh').innerHTML=`<h1 style="margin-bottom:4px">${t}</h1>${h}`;$('#ov').style.display='flex'}
+function closeS(){$('#ov').style.display='none'}
+$('#ov').onclick=e=>{if(e.target.id==='ov')closeS()};
+setInterval(()=>{CR.forEach(k=>{if(k!=='USDT'){A[k].p*=1+(Math.random()-.5)*.0006}});if(!$('#ov').style.display.includes('flex')&&!document.activeElement.matches('input,select')&&['home','wallet'].includes(S.tab))render()},4000);
+render();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+</script></body></html>
